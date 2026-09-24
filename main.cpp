@@ -3,6 +3,14 @@
 #include <random>
 #include <ctime>
 
+/**
+    Clears the screen and resets cursor position
+*/
+void clearScreen()
+{
+    std::cout << "\033[H\033[2J\033[3J" << std::flush;
+}
+
 class Question {
     private: 
     // each index corresponds to the proper question and answer
