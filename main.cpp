@@ -11,6 +11,11 @@ void clearScreen()
     std::cout << "\033[H\033[2J\033[3J" << std::flush;
 }
 
+/**
+    @class Question
+
+    contains a question string and answer string
+*/
 class Question {
     private: 
     // each index corresponds to the proper question and answer
@@ -89,11 +94,11 @@ class Quiz {
         std::string answer;
         int numOfQuestions = 0;
 
-
-        std::cout << "Enter 'end' to stop entering questions.\n";
+        clearScreen();
 
         while (true)
         {
+            std::cout << "Enter 'end' to stop entering questions.\n";
             std::cout << "Enter question " << questions.size() + 1 << ": ";
             std::getline(std::cin, question);
             if (question == "end") break;
@@ -104,6 +109,8 @@ class Quiz {
 
             questions.push_back(Question(question, answer));
             ++numOfQuestions;
+
+            clearScreen();
         }
         
         std::cout << numOfQuestions << " questions have been added\n";
@@ -115,14 +122,17 @@ class Quiz {
 
         while (true)
         {
+            clearScreen();
             std::cout << "========================================\n";
             std::cout << "1) Edit number of answers: " << numberOfAnswers << "\n";
             std::cout << "2) Randomize order: " << (random ? "ON\n" : "OFF\n");
             std::cout << "3) Exit\n";
-
             std::getline(std::cin, userInput);
+
+            // configures the number of answers given
             if (userInput == "1")
             {
+                clearScreen();
                 bool validInput = false;
                 int input;
                 while(!validInput)
@@ -200,6 +210,7 @@ class Quiz {
         }
 
         std::cout << "Score: " << numCorrect << "/" << questions.size() << " (" << numCorrect / questions.size() << ")\n";
+        std::cout << "Press enter to contune";
     }
 };
 
@@ -223,6 +234,7 @@ int main()
         printMenu();        
         std::getline(std::cin, userInput);
 
+        clearScreen();
         if (userInput == "1")
             myQuiz.start();
         else if(userInput == "2")
