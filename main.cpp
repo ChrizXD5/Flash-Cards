@@ -11,6 +11,21 @@ void clearScreen()
     std::cout << "\033[H\033[2J\033[3J" << std::flush;
 }
 
+
+/**
+    Gets input from the user using getline()
+
+    @return String of the lasted entered line.
+*/
+std::string getInput() {
+    std::string userInput;
+    std::cout << "> ";
+    std::getline(std::cin, userInput);
+    std::cin.ignore();
+
+    return userInput;
+}
+
 /**
     @class Question
 
@@ -216,7 +231,7 @@ class Quiz {
 
 void printMenu()
 {
-    std::cout << "========================================\n";
+    std::cout << "===================\n";
     std::cout << "1) Start quiz\n";
     std::cout << "2) Add questions\n";
     std::cout << "3) Quiz options\n";
@@ -228,7 +243,7 @@ int main()
     Quiz myQuiz;
     std::string userInput;
 
-    std::cout << "Flash Cards V0.1\n";
+    std::cout << "Flash Cards V0.2\n";
     while(true)
     {
         printMenu();        
