@@ -17,12 +17,9 @@ void clearScreen()
 
     @return String of the lasted entered line.
 */
-std::string getInput() {
-    std::string userInput;
+void getInput(std::string& output) {
     std::cout << "> ";
-    std::getline(std::cin, userInput);
-
-    return userInput;
+    std::getline(std::cin, output);
 }
 
 /**
@@ -201,7 +198,8 @@ class Quiz {
             std::cout << "1) Edit number of answers: " << numberOfAnswers << "\n";
             std::cout << "2) Randomize order: " << (random ? "ON\n" : "OFF\n");
             std::cout << "3) Exit\n";
-            auto userInput = getInput();
+            std::string userInput;
+            getInput(userInput);
 
             switch(userInput[0])
             {
@@ -317,7 +315,8 @@ int main()
     while(true)
     {
         printMenu();        
-        std::string userInput = getInput();
+        std::string userInput;
+        getInput(userInput);
 
         clearScreen();
         if (userInput == "1")
@@ -330,5 +329,5 @@ int main()
             return 0;
     }
 
-    return 0;
+    return 1;
 }
