@@ -234,6 +234,7 @@ class Quiz {
                         random = true;
                     break;
                 case '3':
+                    clearScreen();
                     return;
                 
             }
@@ -276,18 +277,25 @@ class Quiz {
                 }    
             }
             
-            // @TODO replace with getInput
+            // gets a valid number from the user
             int userInput;
-            std::cin >> userInput;
+            while (true)
+            {
+                if (getInput(userInput))
+                    break;
+                else
+                    std::cout << "Please enter a number!\n";
+            }
+            // checks if answer is correct + 1 due to formating
             if (userInput == correctAnswer + 1)
             {
                 ++numCorrect;
             }
-            std::cin.ignore();
+
+            clearScreen();
         }
 
         std::cout << "Score: " << numCorrect << "/" << questions.size() << " (" << numCorrect / questions.size() << ")\n";
-        std::cout << "Press enter to contune";
     }
 };
 
@@ -305,7 +313,7 @@ int main()
     Quiz myQuiz;
     clearScreen();
 
-    std::cout << "Flash Cards V0.2\n";
+    std::cout << "Flash Cards V0.3\n";
     while(true)
     {
         printMenu();        
