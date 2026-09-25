@@ -21,7 +21,6 @@ std::string getInput() {
     std::string userInput;
     std::cout << "> ";
     std::getline(std::cin, userInput);
-    std::cin.ignore();
 
     return userInput;
 }
@@ -215,6 +214,7 @@ class Quiz {
                 }    
             }
             
+            // @TODO replace with getInput
             int userInput;
             std::cin >> userInput;
             if (userInput == correctAnswer + 1)
@@ -241,13 +241,13 @@ void printMenu()
 int main()
 {
     Quiz myQuiz;
-    std::string userInput;
+    clearScreen();
 
     std::cout << "Flash Cards V0.2\n";
     while(true)
     {
         printMenu();        
-        std::getline(std::cin, userInput);
+        std::string userInput = getInput();
 
         clearScreen();
         if (userInput == "1")
