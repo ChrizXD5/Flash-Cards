@@ -26,6 +26,67 @@ std::string getInput() {
 }
 
 /**
+    Gets input from the user and checks to see if its a valid int
+
+    @retval false input was not valid and no valid output
+    @retval true input was valid and contains an int
+*/
+bool getInput(int& output) {
+
+    std::string userInput;
+    std::cout << "> ";
+    std::getline(std::cin, userInput);
+
+    // converts string into int
+    int intOutput = 0;
+    while (!userInput.empty())
+    {
+        intOutput = intOutput * 10;
+        switch (userInput[0]) {
+            case '0':
+                break;
+            case '1':
+                intOutput = intOutput + 1;
+                break;
+            case '2':
+                intOutput = intOutput + 2;
+                break;
+            case '3':
+                intOutput = intOutput + 3;
+                break;
+            case '4':
+                intOutput = intOutput + 4;
+                break;
+            case '5':
+                intOutput = intOutput + 5;
+                break;
+            case '6':
+                intOutput = intOutput + 6;
+                break;
+            case '7':
+                intOutput = intOutput + 7;
+                break;
+            case '8':
+                intOutput = intOutput + 8;
+                break;
+            case '9':
+                intOutput = intOutput + 9;
+                break;
+
+                // non numeric character is detected
+            default:
+                return false;
+        }
+        // pop the front char
+        userInput.erase(userInput.begin());
+    }
+
+    // valid input
+    output = intOutput;
+    return true;
+}
+
+/**
     @class Question
 
     contains a question string and answer string
@@ -127,13 +188,12 @@ class Quiz {
             clearScreen();
         }
         
+        clearScreen();
         std::cout << numOfQuestions << " questions have been added\n";
     }
 
     void setup()
     {
-        std::string userInput;
-
         while (true)
         {
             clearScreen();
@@ -141,39 +201,41 @@ class Quiz {
             std::cout << "1) Edit number of answers: " << numberOfAnswers << "\n";
             std::cout << "2) Randomize order: " << (random ? "ON\n" : "OFF\n");
             std::cout << "3) Exit\n";
-            std::getline(std::cin, userInput);
+            auto userInput = getInput();
 
-            // configures the number of answers given
-            if (userInput == "1")
+            switch(userInput[0])
             {
-                clearScreen();
-                bool validInput = false;
-                int input;
-                while(!validInput)
-                {
-                    // TODO: Add better error corrections for bad input
-                    std::cout << "Enter number of answers: ";
-                    std::cin >> input;
-                    std::cin.ignore();
 
-                    if (input > 1 && input < 11)
+                case '1':
                     {
-                        validInput = true;
-                        numberOfAnswers = input;
+                    clearScreen();
+                    bool validInput = false;
+                    while (!validInput)
+                    {
+                        int input;
+                        std::cout << "Enter number of answers\n";
+                        if (getInput(input))
+                        {
+                            numberOfAnswers = input;
+                            validInput = true;
+                        }
+                        else
+                        {
+                            clearScreen();
+                            std::cout << "Please enter a number!\n";
+                        }
                     }
-                }
+                    }
+                    break;
+                case '2':
+                    if (random)
+                        random = false;
+                    else
+                        random = true;
+                    break;
+                case '3':
+                    return;
                 
-            }
-            else if (userInput == "2")
-            {
-                if (random)
-                    random = false;
-                else
-                    random = true;
-            }
-            else if (userInput == "3")
-            {
-                return;
             }
         }
     }
