@@ -1,11 +1,14 @@
 # Build for Flash-Cards
 
 .PHONY: all
-all : flashcards
+all: flashcards
 
 .PHONY: clean
 clean:
 	@rm -f Quiz.o clearScreen.o getInput.o Question.o flashcards.o flashcards
+
+run: flashcards
+	./flashcards
 
 flashcards.o: flashcards.cpp
 	g++ -c flashcards.cpp
